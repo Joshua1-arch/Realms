@@ -9,7 +9,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Search, Filter } from 'lucide-react';
 
-// Mock product data - in production, this would come from Supabase
+// Product data
 const products = [
   {
     id: 1,
@@ -17,7 +17,7 @@ const products = [
     category: 'Fashion & Beauty',
     price: 299.99,
     compareAtPrice: 399.99,
-    image: '/placeholder-product.jpg',
+    image: '/ProductsImg/fash1.jpg',
     inStock: true,
     featured: true,
   },
@@ -26,7 +26,7 @@ const products = [
     name: 'Premium Organic Coffee',
     category: 'Agriculture & Food',
     price: 24.99,
-    image: '/placeholder-product.jpg',
+    image: '/ProductsImg/agro1.jpg',
     inStock: true,
     featured: true,
   },
@@ -35,7 +35,7 @@ const products = [
     name: 'Cloud Hosting Package',
     category: 'Technology',
     price: 99.99,
-    image: '/placeholder-product.jpg',
+    image: '/ProductsImg/tech1.jpg',
     inStock: true,
     featured: false,
   },
@@ -45,7 +45,7 @@ const products = [
     category: 'Fashion & Beauty',
     price: 149.99,
     compareAtPrice: 199.99,
-    image: '/placeholder-product.jpg',
+    image: '/ProductsImg/fash2.jpg',
     inStock: true,
     featured: true,
   },
@@ -54,7 +54,7 @@ const products = [
     name: 'Fresh Produce Box',
     category: 'Agriculture & Food',
     price: 39.99,
-    image: '/placeholder-product.jpg',
+    image: '/ProductsImg/agro2.jpg',
     inStock: true,
     featured: false,
   },
@@ -63,7 +63,7 @@ const products = [
     name: 'Business Consulting Package',
     category: 'Business Consulting',
     price: 499.99,
-    image: '/placeholder-product.jpg',
+    image: '/ProductsImg/biz1.jpg',
     inStock: true,
     featured: true,
   },
@@ -81,17 +81,18 @@ const categories = [
 export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All Products');
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   const filteredProducts = products.filter((product) => {
-    const matchesCategory = selectedCategory === 'All Products' || product.category === selectedCategory;
+    const matchesCategory =
+      selectedCategory === 'All Products' || product.category === selectedCategory;
     const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-  
+
   return (
     <>
       <Header />
-      
+
       <main>
         {/* Hero Section */}
         <Hero
@@ -100,7 +101,7 @@ export default function ProductsPage() {
           description="Explore our diverse range of products and services across all divisions"
           centered
         />
-        
+
         {/* Filters Section */}
         <Section background="alt" padding="md">
           <div className="container">
@@ -116,7 +117,7 @@ export default function ProductsPage() {
                   className="w-full pl-10 pr-4 py-3 border border-rare-border rounded-lg font-body text-rare-text placeholder:text-rare-text-light/50 focus:outline-none focus:ring-2 focus:ring-rare-primary focus:border-transparent"
                 />
               </div>
-              
+
               {/* Category Filter */}
               <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
                 <Filter className="h-5 w-5 text-rare-text-light flex-shrink-0" />
@@ -139,7 +140,7 @@ export default function ProductsPage() {
             </div>
           </div>
         </Section>
-        
+
         {/* Products Grid */}
         <Section background="gradient-soft" padding="lg" withTexture>
           <div className="container">
@@ -153,10 +154,16 @@ export default function ProductsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 {filteredProducts.map((product) => (
                   <Card key={product.id} hover padding="none">
-                    <div className="aspect-square bg-gradient-to-br from-rare-accent/30 to-rare-primary/10 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-br from-transparent to-rare-primary/10"></div>
-                      <div className="w-full h-full bg-gradient-to-br from-rare-accent/20 to-rare-primary/5 relative z-10"></div>
+                    {/* ✅ Product Image */}
+                    <div className="aspect-square overflow-hidden rounded-t-xl">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
+
+                    {/* Product Info */}
                     <div className="p-6">
                       <div className="mb-2">
                         <span className="text-xs font-body text-rare-text-light uppercase tracking-wide">
@@ -191,7 +198,7 @@ export default function ProductsPage() {
             )}
           </div>
         </Section>
-        
+
         {/* CTA Section */}
         <Section background="alt" padding="lg">
           <div className="container">
@@ -209,9 +216,8 @@ export default function ProductsPage() {
           </div>
         </Section>
       </main>
-      
+
       <Footer />
     </>
   );
 }
-
